@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+public class BMICalculator {
+    double weightPounds, weightKG, heightInFoot, heightInMeters,bmi;
+    static        Boolean underweight, normal, overweight, obese;
+
+double inputWeightandHeight(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("What is your height in foot? (Hint: 5.7,4.8 etc): ");
+        heightInFoot = input.nextDouble();
+    System.out.println("What is your weight in pounds? (Hint: 175, 190 etc): ");
+     weightPounds = input.nextDouble();
+        return calculateWeightAndHeight();
+    }
+    double calculateWeightAndHeight(){
+        final double METERS = 3.28;
+        final double POUNDS = 0.45359237;
+        weightKG = weightPounds*POUNDS;
+        heightInMeters =heightInFoot / METERS;
+        heightInMeters = Math.pow(heightInMeters, 2);
+        return calculateBMI();
+}
+double calculateBMI(){
+        bmi = weightKG/heightInMeters;
+        System.out.println("Your BMI is "+bmi);
+        bodyTypeCalculation();
+        return bmi;
+}
+void bodyTypeCalculation(){
+         double   bmiUnderweight = 18.5, bmiNormalWeight =24.99, bmiOverWeight =29.99, bmiObeseWeight =30;
+        underweight = (bmi < bmiUnderweight );
+        normal = (bmi < bmiNormalWeight)&&(bmi >bmiUnderweight) ;
+        overweight = (bmi < bmiOverWeight) && (bmi >bmiNormalWeight);
+        obese = (bmi>bmiObeseWeight)&&(bmi>bmiOverWeight);
+        getBmiBodyType();
+}
+String getBmiBodyType(){
+       if (underweight){
+           System.out.print("You are underweight. Please seek medical assistance.") ;
+       } else if (overweight) {
+           System.out.print("You are overweight. ") ;
+       } else if (normal) {
+           System.out.print("You have a normal weight.") ;
+       }else{
+           System.out.print("You are obese. Please seek medical assistance.") ;
+       }
+       return "Done.";
+}
+
+}
